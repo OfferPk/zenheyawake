@@ -1,0 +1,29 @@
+{
+  "name": "zenheyawake",
+  "version": "1.0.0",
+  "description": "ZenHeyawake: Serene Japanese Room Division Logic (Heyawake / ヘヤワケ)",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "node --test test/engine.test.js",
+    "build": "node scripts/build.js"
+  },
+  "keywords": [
+    "heyawake",
+    "nikoli",
+    "logic-puzzle",
+    "zen",
+    "room-division",
+    "shoji",
+    "tatami",
+    "pwa",
+    "capacitor",
+    "offline-game"
+  ],
+  "author": "OfferPk",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0"
+  }
+}
