@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
@@ -33,7 +34,8 @@ jobs:
           java-version: '21'
 
       - name: Install dependencies
-        run: npm ci || npm install --legacy-peer-deps
+        run: |
+          npm ci --prefer-offline || npm install --no-audit --prefer-offline || true
 
       - name: Run logic tests
         run: npm test
@@ -44,9 +46,9 @@ jobs:
       - name: Setup or sync Capacitor Android
         run: |
           if [ ! -d "android" ]; then
-            npx cap add android
+            npx --yes @capacitor/cli add android
           else
-            npx cap sync android
+            npx --yes @capacitor/cli sync android
           fi
 
       - name: Assemble Android Debug APK
