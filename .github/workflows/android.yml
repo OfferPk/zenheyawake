@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci --prefer-offline || npm install --no-audit --prefer-offline || true
+          npm ci || npm install @capacitor/core@6.2.2 @capacitor/cli@6.2.2 @capacitor/android@6.2.2 --no-audit --no-fund
 
       - name: Run logic tests
         run: npm test
@@ -46,9 +46,9 @@ jobs:
       - name: Setup or sync Capacitor Android
         run: |
           if [ ! -d "android" ]; then
-            npx --yes @capacitor/cli add android
+            npx cap add android
           else
-            npx --yes @capacitor/cli sync android
+            npx cap sync android
           fi
 
       - name: Assemble Android Debug APK
