@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ZenHeyawake - Japanese Room Division Logic</title>
+  <meta name="description" content="ZenHeyawake: Meditative Japanese Shoji Room Division Logic Puzzle (Heyawake / ヘヤワケ). Partition peaceful tea rooms with ink stones.">
+  <meta name="theme-color" content="#3a3026">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo-container">
+      <span class="logo-kanji">部屋分</span>
+      <span class="logo-title">ZenHeyawake</span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-rules" class="icon-btn" title="How to Play" aria-label="Rules">?</button>
+      <button id="btn-levels" class="icon-btn" title="Select Chamber" aria-label="Levels">⛩️</button>
+      <button id="btn-sound" class="icon-btn" title="Toggle Sound" aria-label="Sound">🔊</button>
+      <button id="btn-theme" class="icon-btn" title="Toggle Theme" aria-label="Theme">🌙</button>
+    </div>
+  </header>
+
+  <!-- Level Banner -->
+  <div class="level-banner">
+    <div class="level-name-wrap">
+      <span id="pack-tag" class="pack-tag">Engawa • Novice</span>
+      <h2 id="level-title" class="level-title">1. Morning Dew</h2>
+    </div>
+    <div class="level-stats">
+      <div class="stat-item" title="Black stones placed">
+        <span>●</span>
+        <span id="stones-placed">0</span>
+      </div>
+      <div class="stat-item" title="Time elapsed">
+        <span>⏱️</span>
+        <span id="timer-display">00:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hint Banner -->
+  <div id="hint-banner" class="hint-banner"></div>
+
+  <!-- Board Container -->
+  <main class="board-container">
+    <div class="board-card">
+      <div id="grid" class="heyawake-grid"></div>
+    </div>
+  </main>
+
+  <!-- Controls -->
+  <footer class="control-bar">
+    <div class="tool-selector">
+      <button id="tool-cycle" class="tool-btn active" title="Tap cycles: Empty → Stone → Dot">
+        <span>🔄</span>
+        <span>Cycle</span>
+      </button>
+      <button id="tool-stone" class="tool-btn" title="Paint Black Stones">
+        <span>●</span>
+        <span>Stone</span>
+      </button>
+      <button id="tool-dot" class="tool-btn" title="Mark Confirmed White Cells">
+        <span>·</span>
+        <span>Dot</span>
+      </button>
+    </div>
+
+    <div class="action-buttons">
+      <button id="btn-undo" class="action-btn" title="Undo Move (Ctrl+Z)">
+        <span>↩️</span>
+        <span>Undo</span>
+      </button>
+      <button id="btn-reset" class="action-btn" title="Reset Chamber">
+        <span>🔄</span>
+        <span>Reset</span>
+      </button>
+      <button id="btn-hint" class="action-btn btn-primary" title="Get Deductive Hint">
+        <span>💡</span>
+        <span>Hint</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Rules Modal -->
+  <div id="rules-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Rules of Heyawake (ヘヤワケ)</h3>
+        <button id="close-rules-btn" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Heyawake</strong> ("Divided Rooms") is an elegant Japanese logic puzzle invented by Nikoli. Partition tea rooms with black ink stones to bring harmony to the monastery!</p>
+
+        <h4>1. Room Clue Numbers</h4>
+        <p>Thick wooden lattice lines divide the floor into rectangular rooms. A number in the top-left of a room indicates <strong>exactly how many black stones</strong> belong in that room. Rooms without numbers can contain any count.</p>
+
+        <h4>2. No Adjacent Black Stones</h4>
+        <p>Black stones (●) can <strong>never touch orthogonally</strong> (sharing an edge). Diagonal touching is allowed.</p>
+
+        <h4>3. Single Connected White Complex</h4>
+        <p>All white floor cells must form a <strong>single connected group</strong>. No white cell may be walled off or isolated.</p>
+
+        <h4>4. The Corridor Constraint</h4>
+        <p>A straight horizontal or vertical line of white cells <strong>cannot cross through more than two rooms</strong>. Any uninterrupted straight corridor of white cells may visit at most 2 distinct rooms before being blocked by an ink stone or the grid border.</p>
+
+        <h4>💡 Controls &amp; Tips</h4>
+        <ul>
+          <li>Tap a cell to cycle: <strong>Empty → Black Stone (●) → White Dot (·) → Empty</strong>.</li>
+          <li>Or choose <strong>Stone</strong> or <strong>Dot</strong> tool mode to drag and paint swiftly across cells.</li>
+          <li>Room clue numbers turn <span style="color:#2e7d32; font-weight:bold;">Green</span> when properly satisfied!</li>
+          <li>A 2×2 room with clue 2 must have diagonal black stones.</li>
+          <li>Use dots (·) to confirm cells that cannot be black.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level Select Modal -->
+  <div id="level-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Select Chamber</h3>
+        <button id="close-level-btn" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:12px;">50 handcrafted chambers across 5 peaceful packs:</p>
+        <div id="level-select-grid" class="level-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victory Modal -->
+  <div id="victory-modal" class="modal-overlay">
+    <div class="modal-card victory-card">
+      <div class="victory-icon">🌸</div>
+      <h3 id="victory-level-name" class="victory-title">Chamber Harmonized!</h3>
+      <p class="victory-subtitle">The tea rooms rest in perfect balance.</p>
+      <div style="margin-bottom: 24px; font-size: 1.1rem; color: var(--wood-dark);">
+        Time: <strong id="victory-time">00:00</strong>
+      </div>
+      <button id="btn-next-level" class="action-btn btn-primary" style="width: 100%; padding: 14px 0; font-size: 1rem;">
+        Next Chamber ➔
+      </button>
+    </div>
+  </div>
+
+  <script src="heyawake-engine.js"></script>
+  <script src="audio.js"></script>
+  <script src="levels.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

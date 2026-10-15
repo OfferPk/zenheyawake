@@ -1,0 +1,19 @@
+{
+  "name": "ZenHeyawake - Japanese Room Division Logic",
+  "short_name": "ZenHeyawake",
+  "description": "Partition tranquil Japanese shoji tea rooms with ink stones in this meditative offline logic puzzle.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f3ed",
+  "theme_color": "#3a3026",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fdfbf7" />
+      <stop offset="100%" stop-color="#eae4d8" />
+    </radialGradient>
+    <radialGradient id="stone" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#4a443c" />
+      <stop offset="50%" stop-color="#24211d" />
+      <stop offset="100%" stop-color="#12100d" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1c1914" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="512" height="512" rx="108" fill="url(#bg)" />
+
+  <!-- Outer Shoji Frame -->
+  <rect x="40" y="40" width="432" height="432" rx="32" fill="none" stroke="#3d3328" stroke-width="12" />
+
+  <!-- Shoji Lattice Room Divisions -->
+  <line x1="40" y1="210" x2="472" y2="210" stroke="#3d3328" stroke-width="10" />
+  <line x1="210" y1="40" x2="210" y2="472" stroke="#3d3328" stroke-width="10" />
+  <line x1="40" y1="350" x2="210" y2="350" stroke="#4d4135" stroke-width="6" />
+  <line x1="340" y1="210" x2="340" y2="472" stroke="#4d4135" stroke-width="6" />
+
+  <!-- Room Clue Numbers -->
+  <text x="70" y="110" font-family="'Shippori Mincho', 'Noto Serif JP', serif" font-size="44" font-weight="bold" fill="#2e7d32">1</text>
+  <text x="240" y="110" font-family="'Shippori Mincho', 'Noto Serif JP', serif" font-size="44" font-weight="bold" fill="#3d3328">2</text>
+  <text x="70" y="275" font-family="'Shippori Mincho', 'Noto Serif JP', serif" font-size="44" font-weight="bold" fill="#b26a00">0</text>
+  <text x="370" y="275" font-family="'Shippori Mincho', 'Noto Serif JP', serif" font-size="44" font-weight="bold" fill="#2e7d32">1</text>
+
+  <!-- Polished Ink Black Stones -->
+  <circle cx="125" cy="155" r="44" fill="url(#stone)" filter="url(#shadow)" />
+  <circle cx="280" cy="155" r="40" fill="url(#stone)" filter="url(#shadow)" />
+  <circle cx="400" cy="95" r="40" fill="url(#stone)" filter="url(#shadow)" />
+  <circle cx="400" cy="390" r="44" fill="url(#stone)" filter="url(#shadow)" />
+
+  <!-- Soft White Path Markers (Dots) -->
+  <circle cx="125" cy="280" r="14" fill="#7d756a" opacity="0.8" />
+  <circle cx="125" cy="410" r="14" fill="#7d756a" opacity="0.8" />
+  <circle cx="275" cy="280" r="14" fill="#7d756a" opacity="0.8" />
+</svg>
